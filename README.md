@@ -1,118 +1,60 @@
-# [Horizon UI TypeScript ⚡️](https://horizon-ui.com/horizon-ui-chakra-ts) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?url=https://horizon-ui.com/&text=Check%20Horizon%20UI,%20the%20trendiest%20open-source%20admin%20template%20for%20Chakra%20UI%20&%20React!)
+# Payment Gateway Prototype - Horizon UI Chakra TS
 
-![version](https://img.shields.io/badge/version-3.0.0-blue.svg)
-![license](https://img.shields.io/badge/license-MIT-blue.svg)
-[![GitHub issues open](https://img.shields.io/github/issues/horizon-ui/horizon-ui-chakra-ts.svg?maxAge=2592000)](https://github.com/horizon-ui/horizon-ui-chakra-ts/issues?q=is%3Aopen+is%3Aissue)
-
-<p>&nbsp;</p>
-
-[<img alt="Horizon UI TypeScript" src="https://i.ibb.co/KV6FDvK/introduction-image-ts.png" /> ](https://github.com/horizon-ui/horizon-ui-chakra-ts)
-
-<p>&nbsp;</p>
-
-Get started and build your dream web app with Horizon UI, the most trendiest &
-innovative Open Source Admin Template for Chakra UI & React!
+A high-performance web-based Payment Gateway system designed to manage transaction flows between **Merchants**, **Admins**, and **Customers** using React, TypeScript, and Zustand.
 
 ---
 
-### Introduction
+## 🛠 Tech Stack
+*   **Frontend Framework:** React 19 with TypeScript
+*   **UI Library:** Chakra UI (v2.6.1)
+*   **State Management:** Zustand (v5.0.12) with Persist Middleware
+*   **Routing:** React Router DOM (v6.25.1)
+*   **Styling:** Emotion & Framer Motion
 
-Designed for those who like modern UI elements and beautiful websites. Made of
-hundred of elements, designed blocks and fully coded pages, Horizon UI is ready
-to help you create stunning websites and webapps.
+---
 
-Save hundreds of hours trying to create and develop a dashboard from scratch.
-The fastest, most responsive & trendiest dashboard is here. Seriously.
+## 🚀 Technical Development Lifecycle
 
-With Horizon UI you will find many examples for pages like NFTs Pages,
-Authentication Pages, Profile and so on. Just choose between a Basic Design or a
-cover and you are good to go!
+The development of this application followed a structured iterative process to ensure data integrity and a smooth user experience:
 
-### 🎉 [NEW] React Tables V8
+1.  **UI Slicing & Layouting:** 
+    Converted Horizon UI designs into functional components using Chakra UI. Established three core layout structures: `AuthLayout` (Login/Register), `AdminLayout` (Main Dashboard), and a clean Public Route for payment links.
+    
+2.  **Global State Configuration (Zustand):** 
+    Initialized `useGlobalData.ts` and `useAuthStore.ts` using the `persist` middleware. This simulates a real-time database by storing transaction logs and user credentials directly in the browser's Local Storage.
 
-Horizon is also using the latest version of the React Tables (v8) library, you can access it by cloning the [/feature/react-table-v8](https://github.com/horizon-ui/horizon-ui-chakra-ts/tree/feature/react-table-v8) branch!
+3.  **Implementation of Role-Based Access Control (RBAC):** 
+    Defined absolute roles: `'ADMIN'` and `'MERCHANT'`. Implemented strict route protection in `Main.tsx` using `<Navigate>` to ensure users are redirected if they attempt to access unauthorized dashboards.
 
-### 🎉 [NEW] Horizon UI Components
+4.  **Merchant Billing Logic:** 
+    Developed the `createInvoice` function to handle merchant inputs, generating unique invoice IDs (e.g., `INV-XXXXXXXX`) and dynamic payment URLs.
 
-All the main components from both versions, this will help you to see and interact with all & the latest added components of Horizon (also, new components are on the way, stay tuned)! ⚡️
-<a href="https://horizon-ui.com/components/?ref=readme-horizon-ts" target="_blank">See all components</a>
+5.  **Public Payment Gateway Route:** 
+    Created a dynamic `/pay/:id` route using `useParams`. This allows the application to fetch specific invoice data from the global state and render it for unauthenticated customers.
 
-### Documentation
+6.  **Data Architecture Unification (Single Source of Truth):** 
+    Resolved "Split-Brain" data issues by migrating all merchant-specific logic into `useGlobalData`. This ensures that Admin, Merchant, and Public views always reflect identical, real-time data.
 
-Each element is well presented in a very complex documentation. You can read
-more about the <a href="https://horizon-ui.com/documentation/docs/introduction?ref=readme-horizon-ts" target="_blank">documentation
-here.</a>
+7.  **3-Step Transaction State Machine:** 
+    Refined the payment lifecycle into three logical stages:
+    *   `PENDING`: Invoice generated, awaiting customer action.
+    *   `WAITING`: Customer has initiated payment; transaction moved to Admin queue for verification.
+    *   `PAID` / `FAILED`: Final resolution executed by the Admin.
 
-### Quick Start
+8.  **UX & Accessibility Optimizations:** 
+    *   Enhanced the Sign-In flow by wrapping inputs in a `<form>` element to support "Enter to Submit" functionality.
+    *   Integrated the browser’s *Clipboard API* for a "One-Click Copy Link" feature on the merchant table.
 
-Install Horizon UI by running either of the following:
+---
 
-- Install NodeJS LTS from
-  [NodeJs Official Page](https://nodejs.org/en/?ref=horizon-documentation)
-  (NOTE: Product only works with LTS version)
+## 💻 Getting Started
 
-Clone the repository with the following command:
+Follow these steps to run the project on your local machine:
 
-```bash
-git clone https://github.com/horizon-ui/horizon-ui-chakra-ts.git
-```
+### 1. Prerequisites
+Ensure you have **Node.js** and **npm** installed.
 
-Run in terminal this command:
-
+### 2. Install Dependencies
+Clone the repository and run the following command in your terminal:
 ```bash
 npm install
-```
-
-Then run this command to start your local server
-
-```bash
-npm start
-```
-
-### Example Pages
-
-If you want to get inspiration or just show something directly to your clients,
-you can jump start your development with our pre-built example pages. You will
-be able to quickly set up the basic structure for your web project. View
-<a href="https://horizon-ui.com/horizon-ui-chakra-ts/?ref=readme-horizon-ts" target="_blank">example
-pages here.</a>
-
-### Versions
-
-| Free Version                                                                                                           | PRO Version                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| [![Horizon UI](https://i.ibb.co/KV6FDvK/introduction-image-ts.png)](https://www.horizon-ui.com/?ref=readme-horizon-ts) | [![Horizon UI PRO](https://i.ibb.co/R6jFKRM/introduction-image-1.png)](https://www.horizon-ui.com/pro?ref=readme-horizon-ts) |
-
-### Figma Version
-
-Horizon UI is available in Figma format as well! Check it out on Figma
-Community! 🎨
-[See the Horizon UI Figma design files](https://bit.ly/horizon-figma)
-
-### Reporting Issues
-
-We use GitHub Issues as the official bug tracker for the Horizon UI. Here are
-some advices for our users that want to report an issue:
-
-1. Make sure that you are using the latest version of the Horizon UI Dashbaord.
-   Check the CHANGELOG from your dashboard on our
-   [CHANGE LOG File](https://github.com/horizon-ui/horizon-ui-chakra-ts/blob/main/CHANGELOG.md?ref=readme-horizon-ts).
-2. Providing us reproducible steps for the issue will shorten the time it takes
-   for it to be fixed.
-3. Some issues may be browser specific, so specifying in what browser you
-   encountered the issue might help.
-
----
-
-### Community
-
-Connect with the community! Feel free to ask questions, report issues, and meet
-new people that already use Horizon UI!
-
-💬 [Join the #HorizonUI Discord Community!](https://discord.gg/f6tEKFBd4m)
-
-### Copyright and license
-
-⭐️ [Copyright 2022 Simmmple ](https://www.simmmple.com/?ref=readme-horizon-ts)
-
-📄 [Horizon UI License](https://www.simmmple.com/licenses?ref=readme-horizon-ts)
